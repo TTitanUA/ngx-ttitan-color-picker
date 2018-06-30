@@ -1,0 +1,24 @@
+<div class="picker-palette-wrapper" *ngIf="pallets.length > 0">
+  <div class="palette-links">
+    <div
+      class="palette-link"
+      *ngFor="let palette of pallets"
+      [ngClass]="{'selected': (activePalette !== null && activePalette.id == palette.id)}"
+      (click)="selectPalette(palette)"
+    >
+      {{palette.name}}
+    </div>
+  </div>
+  <div class="palette-picker-holder" *ngIf="activePalette !== null && activePalette.colors.length > 0">
+    <div
+      class="palette-color"
+      *ngFor="let color of activePalette.colors"
+      [ngStyle]="{
+        backgroundColor: color
+      }"
+      (click)="colorSelected(color)"
+    >
+
+    </div>
+  </div>
+</div>

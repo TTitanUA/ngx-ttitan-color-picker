@@ -1,0 +1,39 @@
+:host {
+  .picker-palette-wrapper {
+    .palette-links {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 5px;
+      .palette-link {
+        margin-right: 5px;
+        border-radius: 3px;
+        padding: 2px 4px;
+        border: 1px solid #ddd;
+        text-transform: uppercase;
+        font-size: 10px;
+        font-family: monospace;
+        font-weight: 600;
+        background-color: white;
+        cursor: pointer;
+        &.selected {
+          background-color: #5E6BC5;
+          color: #fff;
+        }
+
+      }
+    }
+    .palette-picker-holder {
+      height: 165px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: flex-start;
+      align-content: baseline;
+      .palette-color {
+        cursor: pointer;
+        width: 10px;
+        height: 10px;
+      }
+    }
+  }
+}

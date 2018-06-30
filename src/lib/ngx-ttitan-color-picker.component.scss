@@ -1,0 +1,182 @@
+:host {
+  *, :after, :before {
+    box-sizing: border-box;
+  }
+
+  .picker-input-wrapper {
+    margin-bottom: 6px;
+    .picker-input-label {
+      margin-bottom: 6px;
+      label {
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+    }
+    .picker-input-holder {
+      display: flex;
+      height: 33px;
+      border: 1px solid #bbb;
+      overflow: hidden;
+      border-radius: 3px;
+      background-color: #eee;
+      .picker-color {
+        flex: 0 0 31px;
+        background-color: #ff0300;
+      }
+      .picker-input {
+        flex: auto;
+        background-color: transparent;
+        input {
+          background-color: transparent;
+          color: #272727;
+          font-family: monospace;
+          font-size: 14px;
+          border: none;
+          outline: none;
+          padding: 8px 2px 8px 8px;
+          width: 100%;
+        }
+      }
+      .picker-save-sign {
+        flex: 0 0 31px;
+        line-height: 33px;
+        text-align: center;
+      }
+    }
+  }
+
+
+  .ngx-ttitan-color-picker {
+    max-height: 0;
+    //height: 0;
+    overflow: hidden;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    display: -ms-flexbox;
+    display: flex;
+    transition: max-height 0.3s;
+
+    &.open {
+      margin-bottom: 5px;
+      max-height: 165px;
+      //height: 165px;
+    }
+  }
+
+
+  .ngx-ttitan-color-picker__ColorLayer {
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    box-shadow: inset 0 0 2px 0 rgba(0,0,0,.5);
+    pointer-events: none;
+  }
+
+  .ngx-ttitan-color-picker__Slidable {
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  .ngx-ttitan-color-picker__Dragger {
+    position: relative;
+    z-index: 30;
+    bottom: .9rem;
+    transform: none;
+    height: 18px;
+    width: 18px;
+    margin: 0 auto;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: transform;
+    background: transparent;
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 1px rgba(6,44,82,.1), 0 2px 16px rgba(33,43,54,.08), inset 0 0 0 1px rgba(6,44,82,.1), 0 2px 16px rgba(33,43,54,.08);
+    border-radius: 50%;
+    pointer-events: none;
+    touch-action: none;
+  }
+
+  .ngx-ttitan-color-picker__MainColor {
+    background-image: linear-gradient(45deg,#dfe3e8 25%,transparent 0),linear-gradient(-45deg,#dfe3e8 25%,transparent 0),linear-gradient(45deg,transparent 75%,#dfe3e8 0),linear-gradient(-45deg,transparent 75%,#dfe3e8 0);
+    background-size: 1.6rem 1.6rem;
+    background-position: 0 0,0 .8rem,.8rem -.8rem,-.8rem 0;
+    position: relative;
+    overflow: hidden;
+    width: 165px;
+    height: 165px;
+    border-radius: 4px;
+    cursor: pointer;
+
+    .ngx-ttitan-color-picker__ColorLayer {
+      box-shadow: inset 0 0 0 1px rgba(6,44,82,.1), 0 2px 16px rgba(33,43,54,.08);
+      border-radius: 4px;
+    }
+
+    .ngx-ttitan-color-picker__Dragger {
+      right: .9rem;
+      margin: 0;
+    }
+
+    &:after, &:before {
+      content: "";
+      position: absolute;
+      z-index: 20;
+      top: 0;
+      left: 0;
+      display: block;
+      height: 100%;
+      width: 100%;
+      pointer-events: none;
+      border-radius: 3px;
+    }
+    &:before {
+      background: linear-gradient(90deg,#fff,transparent);
+    }
+    &:after {
+      background-image: linear-gradient(0deg,#000,transparent);
+      box-shadow: inset 0 0 0 1px rgba(6,44,82,.1), 0 2px 16px rgba(33,43,54,.08);
+    }
+
+  }
+
+  .ngx-ttitan-color-picker__AlphaPicker, .ngx-ttitan-color-picker__HuePicker {
+    position: relative;
+    overflow: hidden;
+    height: 165px;
+    width: 24px;
+    margin-left: .8rem;
+    border-width: 3px;
+    border-radius: 8rem;
+    padding: 13px 0;
+
+  }
+
+  .ngx-ttitan-color-picker__HuePicker {
+    background: linear-gradient(to bottom, #ff0000 0%, #ffff00 21%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);
+    box-shadow: inset 0 0 2px 0 rgba(0,0,0,.5);
+  }
+
+  .ngx-ttitan-color-picker__AlphaPicker {
+    background-image: linear-gradient(45deg,#dfe3e8 25%,transparent 0),linear-gradient(-45deg,#dfe3e8 25%,transparent 0),linear-gradient(45deg,transparent 75%,#dfe3e8 0),linear-gradient(-45deg,transparent 75%,#dfe3e8 0);
+    background-size: 1.6rem 1.6rem;
+    background-position: 0 0,0 .8rem,.8rem -.8rem,-.8rem 0;
+    .ngx-ttitan-color-picker__ColorLayer {
+      border-radius: 8rem;
+    }
+  }
+
+  .ngx-ttitan-color-picker {
+    &.no-alpha {
+      .ngx-ttitan-color-picker__MainColor {
+        width: 200px;
+      }
+    }
+  }
+
+}
