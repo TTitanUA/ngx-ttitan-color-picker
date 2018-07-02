@@ -1,5 +1,7 @@
 import {
-  AfterViewInit, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, HostListener, Input, OnInit,
+  AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef,
+  EventEmitter,
+  HostListener, Input, OnInit,
   Output,
   ViewChild
 } from '@angular/core';
@@ -9,6 +11,7 @@ import {NgxTTitanColorPickerInputDirective} from "./ngx-ttitan-color-picker-inpu
 import {NgxTTitanColorPickerPaletteListComponent} from "./ngx-ttitan-color-picker-palette-list/ngx-ttitan-color-picker-palette-list.component";
 //[ngStyle]="{background: 'linear-gradient(to top, ' + ngxTTitanColorPickerService.currentColor + ' 18px, rgb(255, 77, 255) calc(100% - 18px)'}"
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'lib-ngx-ttitan-color-picker',
   templateUrl: './ngx-ttitan-color-picker.component.html',
   styleUrls: ['./ngx-ttitan-color-picker.component.scss'],
@@ -45,13 +48,14 @@ export class NgxTTitanColorPickerComponent implements OnInit, AfterViewInit {
   }
 
   @Input('alpha') public alpha: boolean = false;
+  @Input('debug') public debug: boolean = false;
   @Input('color') public color: string = 'rgba(255,255,255,0)';
   @Input('title') public title: string = 'title';
   @Input('outFormat') public outFormat: string = 'hex6';
   @Input('inputFormat') public inputFormat: string = 'hex6';
   @Input('availPallets') public availPallets: Array<string> = ['polaris', 'material'];
   @Input('customPallets') public customPallets:  Array<Palette> = [];
-  @Output('update') public update: EventEmitter<string> = new EventEmitter<string>();
+  @Output('colorChanged') public colorChanged: EventEmitter<string> = new EventEmitter<string>();
 
   @ViewChild('pickerInput') public pickerInput: NgxTTitanColorPickerInputDirective;
 
@@ -83,16 +87,19 @@ export class NgxTTitanColorPickerComponent implements OnInit, AfterViewInit {
   public allowedFormats: Array<string> = ['hex6', 'hex8', 'rgb', 'rgba'];
 
   constructor(
-    public colorPickerService: NgxTTitanColorPickerService
+    public colorPickerService: NgxTTitanColorPickerService,
+    public cdr: ChangeDetectorRef
   ) {
     this.uuid = this.colorPickerService.getPickerUuid();
-    this.validateInputParams();
-    this.colorPickerService.preparePickerPallets(this.availPallets, this.customPallets, this);
 
   }
 
   ngOnInit() {
+    this.colorPickerService.debug = this.debug;
+    this.validateInputParams();
+    this.colorPickerService.preparePickerPallets(this.availPallets, this.customPallets, this);
     this.colorPickerService.colorToData(this.color, this);
+    this.cdr.detectChanges();
   }
 
 
@@ -135,9 +142,11 @@ export class NgxTTitanColorPickerComponent implements OnInit, AfterViewInit {
 
   updateReturnColor() {
     this.color = this.colorPickerService.prepareReturnColor(this.hsva, this.outFormat);
+
     if(this.colorInit) {
-      this.update.emit(this.color + '');
+      this.colorChanged.emit(this.color + '');
     }
+    this.colorInit = true;
   }
 
 

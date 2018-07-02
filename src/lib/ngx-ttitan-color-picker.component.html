@@ -1,9 +1,17 @@
 <div
   class="ngx-ttitan-color-picker-wrapper"
 >
+
   <div class="picker-input-wrapper">
+    <div
+      [ngStyle]="{backgroundColor: color}"
+      class="debug-output"
+      *ngIf="colorPickerService.debug"
+    >
+      {{color}}
+    </div>
     <div class="picker-input-label">
-      <label [for]="uuid" >{{title}} {{color}}</label>
+      <label [for]="uuid" >{{title}}</label>
     </div>
     <div class="picker-input-holder">
       <div class="picker-color" [ngStyle]="{background: currentColorAlpha}">
