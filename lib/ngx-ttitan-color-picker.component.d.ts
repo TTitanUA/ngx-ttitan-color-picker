@@ -1,12 +1,14 @@
-import { AfterViewInit, EventEmitter, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, EventEmitter, OnInit } from '@angular/core';
 import { NgxTTitanColorPickerSelectorDirective } from "./ngx-ttitan-color-picker-selector.directive";
 import { HSVA, NgxTTitanColorPickerService, Palette } from "./ngx-ttitan-color-picker.service";
 import { NgxTTitanColorPickerInputDirective } from "./ngx-ttitan-color-picker-input.directive";
 import { NgxTTitanColorPickerPaletteListComponent } from "./ngx-ttitan-color-picker-palette-list/ngx-ttitan-color-picker-palette-list.component";
 export declare class NgxTTitanColorPickerComponent implements OnInit, AfterViewInit {
     colorPickerService: NgxTTitanColorPickerService;
+    cdr: ChangeDetectorRef;
     componentClick($event: any): void;
     alpha: boolean;
+    debug: boolean;
     color: string;
     title: string;
     outFormat: string;
@@ -29,7 +31,7 @@ export declare class NgxTTitanColorPickerComponent implements OnInit, AfterViewI
     currentColorAlphaZero: string;
     uuid: string;
     allowedFormats: Array<string>;
-    constructor(colorPickerService: NgxTTitanColorPickerService);
+    constructor(colorPickerService: NgxTTitanColorPickerService, cdr: ChangeDetectorRef);
     ngOnInit(): void;
     ngAfterViewInit(): void;
     openPicker(): void;

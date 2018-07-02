@@ -13,6 +13,7 @@ export interface Palette {
     colors: Array<string>;
 }
 export declare class NgxTTitanColorPickerService {
+    debug: boolean;
     pickerList: Array<string>;
     pallets: Array<Palette>;
     mouseMoveObservable: Observable<MouseEvent>;
