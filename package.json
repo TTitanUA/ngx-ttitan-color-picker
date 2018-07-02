@@ -6,18 +6,5 @@
   "peerDependencies": {
     "@angular/common": ">= 4.0.0 < 7.1",
     "@angular/core": ">= 4.0.0 < 7.1"
-  },
-  "main": "bundles/ngx-ttitan-color-picker.umd.js",
-  "module": "fesm5/ngx-ttitan-color-picker.js",
-  "es2015": "fesm2015/ngx-ttitan-color-picker.js",
-  "esm5": "esm5/ngx-ttitan-color-picker.js",
-  "esm2015": "esm2015/ngx-ttitan-color-picker.js",
-  "fesm5": "fesm5/ngx-ttitan-color-picker.js",
-  "fesm2015": "fesm2015/ngx-ttitan-color-picker.js",
-  "typings": "ngx-ttitan-color-picker.d.ts",
-  "metadata": "ngx-ttitan-color-picker.metadata.json",
-  "sideEffects": false,
-  "dependencies": {
-    "tslib": "^1.9.0"
   }
 }

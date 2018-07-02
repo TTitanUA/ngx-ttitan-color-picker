@@ -1,6 +1,8 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {CustomPercent} from "./ngx-ttitan-color-picker-selector.directive";
 import {NgxTTitanColorPickerComponent} from "./ngx-ttitan-color-picker.component";
+import {fromEvent, Observable} from "rxjs/index";
+import {window} from "rxjs/internal/operators";
 
 export interface HSVA {
   hue: number,
@@ -20,12 +22,25 @@ export interface Palette {
 })
 export class NgxTTitanColorPickerService {
 
-
+  public debug: boolean = false;
   public pickerList: Array<string> = [];
   public pallets: Array<Palette> = [];
 
+  public mouseMoveObservable: Observable<MouseEvent> = <Observable<MouseEvent>>fromEvent(document, 'mousemove');
+  public mouseUpObservable: Observable<MouseEvent> = <Observable<MouseEvent>>fromEvent(document, 'mouseup');
+  // public mouseMoveObservable: EventEmitter<MouseEvent> = new EventEmitter();
+  // public mouseUpObservable: EventEmitter<MouseEvent> = new EventEmitter();
+
   constructor() {
     this.fillBasePallets();
+    //
+    // document.addEventListener('mousemove', ($event) => {
+    //   this.mouseMoveObservable.emit(<MouseEvent>$event);
+    // });
+    // document.addEventListener('mouseup', ($event) => {
+    //   this.mouseUpObservable.emit(<MouseEvent>$event);
+    // });
+
   }
 
   saturationChange(percent: CustomPercent, pickerComponent: NgxTTitanColorPickerComponent ) {
@@ -321,22 +336,14 @@ export class NgxTTitanColorPickerService {
 
   hsvaToHex(H, S, V, A, showAlpha: boolean = true): string {
     let rgba: Array<number> = this.hsvaToRgba(H, S, V, A);
-    let hR: string = rgba[0].toString(16);
-    let hG: string = rgba[1].toString(16);
-    let hB: string = rgba[2].toString(16);
+
     let hA: string = ((showAlpha) ? (rgba[3] * 255).toString(16).substring(0,2) : '');
 
-    hR = (hR.length == 1) ? hR + hR : hR;
-    hG = (hG.length == 1) ? hG + hG : hG;
-    hB = (hB.length == 1) ? hB + hB : hB;
     if(showAlpha) {
       hA = (hA.length == 1) ? hA + hA : hA;
     }
-
     return '#' +
-      hR +
-      hG +
-      hB +
+      ((rgba[2] | rgba[1] << 8 | rgba[0] << 16) | 1 << 24).toString(16).slice(1) +
       hA;
   }
 

@@ -4,6 +4,7 @@ import {
 import {NgxTTitanColorPickerDraggerDirective} from "./ngx-ttitan-color-picker-dragger.directive";
 // import {Observable, Subscription, of} from "rxjs";
 import {fromEvent, Subscription} from 'rxjs';
+import {NgxTTitanColorPickerService} from "./ngx-ttitan-color-picker.service";
 
 export interface CustomRect {
   height: number,
@@ -43,15 +44,30 @@ export class NgxTTitanColorPickerSelectorDirective implements OnDestroy{
 
 
 
-  constructor(public elRef: ElementRef) {
+  constructor(
+    public elRef: ElementRef,
+    public colorPickerService: NgxTTitanColorPickerService
+  ) {
     this.el = this.elRef.nativeElement;
     this.direction = (['both', 'vertical', 'horizontal'].indexOf(this.direction) === -1) ? 'both' : this.direction;
-    this.globalMouseMove = fromEvent(window, 'mousemove').subscribe((event) => {
+    // this.globalMouseMove = fromEvent(window, 'mousemove').subscribe((event) => {
+    //   if(this.dragStart) {
+    //     this.getPosition(<MouseEvent>event);
+    //   }
+    // });
+    // this.globalMouseUp = fromEvent(window, 'mouseup').subscribe((event) => {
+    //   if(this.dragStart) {
+    //     this.dragStart = false;
+    //     this.getPosition(<MouseEvent>event);
+    //   }
+    // });
+
+    this.globalMouseMove = this.colorPickerService.mouseMoveObservable.subscribe((event) => {
       if(this.dragStart) {
         this.getPosition(<MouseEvent>event);
       }
     });
-    this.globalMouseUp = fromEvent(window, 'mouseup').subscribe((event) => {
+    this.globalMouseUp = this.colorPickerService.mouseUpObservable.subscribe((event) => {
       if(this.dragStart) {
         this.dragStart = false;
         this.getPosition(<MouseEvent>event);
