@@ -17,17 +17,15 @@ export interface Palette {
   colors: Array<string>
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class NgxTTitanColorPickerService {
 
   public debug: boolean = false;
   public pickerList: Array<string> = [];
   public pallets: Array<Palette> = [];
 
-  public mouseMoveObservable: Observable<MouseEvent> = <Observable<MouseEvent>>fromEvent(document, 'mousemove');
-  public mouseUpObservable: Observable<MouseEvent> = <Observable<MouseEvent>>fromEvent(document, 'mouseup');
+  // public mouseMoveObservable: Observable<MouseEvent> = <Observable<MouseEvent>>fromEvent(document, 'mousemove');
+  // public mouseUpObservable: Observable<MouseEvent> = <Observable<MouseEvent>>fromEvent(document, 'mouseup');
   // public mouseMoveObservable: EventEmitter<MouseEvent> = new EventEmitter();
   // public mouseUpObservable: EventEmitter<MouseEvent> = new EventEmitter();
 
