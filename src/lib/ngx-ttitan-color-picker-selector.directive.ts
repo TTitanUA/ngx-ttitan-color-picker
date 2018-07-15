@@ -1,5 +1,5 @@
 import {
-  ContentChild, Directive, ElementRef, EventEmitter, HostListener, Input, OnDestroy, Output
+  ContentChild, Directive, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output
 } from '@angular/core';
 import {NgxTTitanColorPickerDraggerDirective} from "./ngx-ttitan-color-picker-dragger.directive";
 // import {Observable, Subscription, of} from "rxjs";
@@ -23,7 +23,7 @@ export interface CustomPercent {
   selector: '[libNgxTTitanColorPickerSelector]',
   exportAs: 'libNgxTTitanColorPickerSelector'
 })
-export class NgxTTitanColorPickerSelectorDirective implements OnDestroy{
+export class NgxTTitanColorPickerSelectorDirective implements OnDestroy, OnInit{
 
   @Input('direction') public direction: string = 'both';
 
@@ -35,6 +35,7 @@ export class NgxTTitanColorPickerSelectorDirective implements OnDestroy{
   public dragStart: boolean = false;
   public globalMouseMove: Subscription = null;
   public globalMouseUp: Subscription = null;
+
 
 
   @HostListener('mousedown', ['$event']) public onMouseDown($event) {
@@ -50,33 +51,48 @@ export class NgxTTitanColorPickerSelectorDirective implements OnDestroy{
   ) {
     this.el = this.elRef.nativeElement;
     this.direction = (['both', 'vertical', 'horizontal'].indexOf(this.direction) === -1) ? 'both' : this.direction;
-    // this.globalMouseMove = fromEvent(window, 'mousemove').subscribe((event) => {
-    //   if(this.dragStart) {
-    //     this.getPosition(<MouseEvent>event);
-    //   }
-    // });
-    // this.globalMouseUp = fromEvent(window, 'mouseup').subscribe((event) => {
-    //   if(this.dragStart) {
-    //     this.dragStart = false;
-    //     this.getPosition(<MouseEvent>event);
-    //   }
-    // });
 
-    this.globalMouseMove = this.colorPickerService.mouseMoveObservable.subscribe((event) => {
+
+
+  }
+
+  ngOnInit() {
+
+
+  }
+
+  ngOnDestroy() {
+   this.eventsUnSubscibe();
+  }
+
+
+  eventsSubscibe() {
+    this.globalMouseMove = fromEvent(window, 'mousemove').subscribe((event) => {
       if(this.dragStart) {
         this.getPosition(<MouseEvent>event);
       }
     });
-    this.globalMouseUp = this.colorPickerService.mouseUpObservable.subscribe((event) => {
+    this.globalMouseUp = fromEvent(window, 'mouseup').subscribe((event) => {
       if(this.dragStart) {
         this.dragStart = false;
         this.getPosition(<MouseEvent>event);
       }
     });
 
-  }
 
-  ngOnDestroy() {
+    // this.globalMouseMove = this.colorPickerService.mouseMoveObservable.subscribe((event) => {
+    //   if(this.dragStart) {
+    //     this.getPosition(<MouseEvent>event);
+    //   }
+    // });
+    // this.globalMouseUp = this.colorPickerService.mouseUpObservable.subscribe((event) => {
+    //   if(this.dragStart) {
+    //     this.dragStart = false;
+    //     this.getPosition(<MouseEvent>event);
+    //   }
+    // });
+  }
+  eventsUnSubscibe() {
     if(this.globalMouseMove !== null) {
       this.globalMouseMove.unsubscribe();
     }

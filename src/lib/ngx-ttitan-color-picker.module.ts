@@ -5,6 +5,7 @@ import { NgxTTitanColorPickerDraggerDirective } from './ngx-ttitan-color-picker-
 import {CommonModule} from "@angular/common";
 import { NgxTTitanColorPickerInputDirective } from './ngx-ttitan-color-picker-input.directive';
 import { NgxTTitanColorPickerPaletteListComponent } from './ngx-ttitan-color-picker-palette-list/ngx-ttitan-color-picker-palette-list.component';
+import {NgxTTitanColorPickerService} from "./ngx-ttitan-color-picker.service";
 
 @NgModule({
   imports: [
@@ -17,6 +18,9 @@ import { NgxTTitanColorPickerPaletteListComponent } from './ngx-ttitan-color-pic
     NgxTTitanColorPickerInputDirective,
     NgxTTitanColorPickerPaletteListComponent,
   ],
-  exports: [NgxTTitanColorPickerComponent]
+  exports: [NgxTTitanColorPickerComponent],
+  providers: [
+    NgxTTitanColorPickerService
+  ]
 })
 export class NgxTTitanColorPickerModule { }

@@ -61,9 +61,10 @@ export class NgxTTitanColorPickerComponent implements OnInit, AfterViewInit {
 
   @ViewChild(NgxTTitanColorPickerPaletteListComponent) public paletteList: NgxTTitanColorPickerPaletteListComponent;
 
-  @ViewChild('mainColor') public mainColor: NgxTTitanColorPickerSelectorDirective = null;
+  @ViewChild('mainColor') public mainColor: NgxTTitanColorPickerSelectorDirective;
   @ViewChild('huePicker') public huePicker: NgxTTitanColorPickerSelectorDirective;
   @ViewChild('alphaPicker') public alphaPicker: NgxTTitanColorPickerSelectorDirective;
+
 
   public colorInit: boolean = false;
   public pickerOpen: boolean = false;
@@ -112,9 +113,27 @@ export class NgxTTitanColorPickerComponent implements OnInit, AfterViewInit {
     if(typeof this.paletteList !== 'undefined') {
       this.paletteList.closePalette();
     }
+    if(typeof this.mainColor !== 'undefined') {
+      this.mainColor.eventsSubscibe();
+    }
+    if(typeof this.huePicker !== 'undefined') {
+      this.huePicker.eventsSubscibe();
+    }
+    if(typeof this.alphaPicker !== 'undefined') {
+      this.alphaPicker.eventsSubscibe();
+    }
   }
 
   closePicker() {
+    if(typeof this.mainColor !== 'undefined') {
+      this.mainColor.eventsUnSubscibe();
+    }
+    if(typeof this.huePicker !== 'undefined') {
+      this.huePicker.eventsUnSubscibe();
+    }
+    if(typeof this.alphaPicker !== 'undefined') {
+      this.alphaPicker.eventsUnSubscibe();
+    }
     this.pickerOpen = false;
   }
 
@@ -160,7 +179,7 @@ export class NgxTTitanColorPickerComponent implements OnInit, AfterViewInit {
 
   setDraggesToCurrentColor() {
 
-    if(this.mainColor !== null) {
+    if(typeof this.mainColor !== 'undefined') {
       this.mainColor.setDragger(
         {
           x: this.hsva.saturation,

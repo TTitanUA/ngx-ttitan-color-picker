@@ -1,6 +1,5 @@
 import { CustomPercent } from "./ngx-ttitan-color-picker-selector.directive";
 import { NgxTTitanColorPickerComponent } from "./ngx-ttitan-color-picker.component";
-import { Observable } from "rxjs/index";
 export interface HSVA {
     hue: number;
     saturation: number;
@@ -16,8 +15,6 @@ export declare class NgxTTitanColorPickerService {
     debug: boolean;
     pickerList: Array<string>;
     pallets: Array<Palette>;
-    mouseMoveObservable: Observable<MouseEvent>;
-    mouseUpObservable: Observable<MouseEvent>;
     constructor();
     saturationChange(percent: CustomPercent, pickerComponent: NgxTTitanColorPickerComponent): void;
     hueChange(percent: CustomPercent, pickerComponent: NgxTTitanColorPickerComponent): void;
