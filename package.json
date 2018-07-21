@@ -1,6 +1,6 @@
 {
   "name": "ngx-ttitan-color-picker",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "license": "MIT",
   "repository": "github:TTitanUA/ngx-ttitan-color-picker",
   "peerDependencies": {
