@@ -7,6 +7,7 @@ export declare class NgxTTitanColorPickerComponent implements OnInit, AfterViewI
     colorPickerService: NgxTTitanColorPickerService;
     cdr: ChangeDetectorRef;
     componentClick($event: any): void;
+    pickerOpenInStart: boolean;
     alpha: boolean;
     debug: boolean;
     color: string;
