@@ -1,27 +1,23 @@
-import { AfterViewInit, ChangeDetectorRef, EventEmitter, OnInit } from '@angular/core';
+import { ChangeDetectorRef, EventEmitter, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { NgxTTitanColorPickerSelectorDirective } from "./ngx-ttitan-color-picker-selector.directive";
-import { HSVA, NgxTTitanColorPickerService, Palette } from "./ngx-ttitan-color-picker.service";
+import { NgxTTitanColorPickerService } from "./ngx-ttitan-color-picker.service";
 import { NgxTTitanColorPickerInputDirective } from "./ngx-ttitan-color-picker-input.directive";
 import { NgxTTitanColorPickerPaletteListComponent } from "./ngx-ttitan-color-picker-palette-list/ngx-ttitan-color-picker-palette-list.component";
-export declare class NgxTTitanColorPickerComponent implements OnInit, AfterViewInit {
+import { HSVA, Palette, PickerConfig, PickerOptions } from "./ngx-ttitan-color-picker.interface";
+export declare class NgxTTitanColorPickerComponent implements OnInit, OnChanges {
     colorPickerService: NgxTTitanColorPickerService;
     cdr: ChangeDetectorRef;
     componentClick($event: any): void;
-    pickerOpenInStart: boolean;
-    alpha: boolean;
-    debug: boolean;
+    options: PickerOptions;
     color: string;
     title: string;
-    outFormat: string;
-    inputFormat: string;
-    availPallets: Array<string>;
-    customPallets: Array<Palette>;
     colorChanged: EventEmitter<string>;
     pickerInput: NgxTTitanColorPickerInputDirective;
     paletteList: NgxTTitanColorPickerPaletteListComponent;
     mainColor: NgxTTitanColorPickerSelectorDirective;
     huePicker: NgxTTitanColorPickerSelectorDirective;
     alphaPicker: NgxTTitanColorPickerSelectorDirective;
+    _pickerConfig: PickerConfig;
     colorInit: boolean;
     pickerOpen: boolean;
     pickerPallets: Array<Palette>;
@@ -32,14 +28,15 @@ export declare class NgxTTitanColorPickerComponent implements OnInit, AfterViewI
     currentColorAlphaZero: string;
     uuid: string;
     allowedFormats: Array<string>;
+    alphaFormats: Array<string>;
     constructor(colorPickerService: NgxTTitanColorPickerService, cdr: ChangeDetectorRef);
     ngOnInit(): void;
-    ngAfterViewInit(): void;
+    ngOnChanges(changes: SimpleChanges): void;
     openPicker(): void;
     closePicker(): void;
     validateInputParams(): void;
     inputColorChange(color: string): void;
     updateReturnColor(): void;
     setInputValue(): void;
-    setDraggesToCurrentColor(): void;
+    setDraggersToCurrentColor(): void;
 }

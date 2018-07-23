@@ -1,31 +1,18 @@
 import {EventEmitter, Injectable} from '@angular/core';
-import {CustomPercent} from "./ngx-ttitan-color-picker-selector.directive";
 import {NgxTTitanColorPickerComponent} from "./ngx-ttitan-color-picker.component";
 import {fromEvent, Observable} from "rxjs/index";
 import {window} from "rxjs/internal/operators";
+import {CustomPercent, HSVA, Palette} from "./ngx-ttitan-color-picker.interface";
 
-export interface HSVA {
-  hue: number,
-  saturation: number,
-  value: number,
-  alpha: number,
-}
-
-export interface Palette {
-  name: string,
-  id: string,
-  colors: Array<string>
-}
 
 @Injectable()
 export class NgxTTitanColorPickerService {
 
-  public debug: boolean = false;
   public pickerList: Array<string> = [];
   public pallets: Array<Palette> = [];
 
-  // public mouseMoveObservable: Observable<MouseEvent> = <Observable<MouseEvent>>fromEvent(document, 'mousemove');
-  // public mouseUpObservable: Observable<MouseEvent> = <Observable<MouseEvent>>fromEvent(document, 'mouseup');
+  public mouseMoveObservable: Observable<MouseEvent> = <Observable<MouseEvent>>fromEvent(document, 'mousemove');
+  public mouseUpObservable: Observable<MouseEvent> = <Observable<MouseEvent>>fromEvent(document, 'mouseup');
   // public mouseMoveObservable: EventEmitter<MouseEvent> = new EventEmitter();
   // public mouseUpObservable: EventEmitter<MouseEvent> = new EventEmitter();
 
@@ -423,6 +410,7 @@ export class NgxTTitanColorPickerService {
   }
 
   preparePickerPallets(availPallets: Array<string> = [], customPallets: Array<Palette> = [], pickerComponent: NgxTTitanColorPickerComponent) {
+    pickerComponent.pickerPallets = [];
     this.pallets.forEach((palette) => {
       if(availPallets.indexOf(palette.id) !== -1) {
         pickerComponent.pickerPallets.push(palette);

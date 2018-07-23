@@ -1,4 +1,5 @@
 import {Directive, ElementRef, HostBinding, Input} from '@angular/core';
+import {ColorPickerComponent} from "./ngx-ttitan-color-picker.interface";
 
 @Directive({
   selector: '[libNgxTTitanColorPickerDragger]'
@@ -6,6 +7,7 @@ import {Directive, ElementRef, HostBinding, Input} from '@angular/core';
 export class NgxTTitanColorPickerDraggerDirective {
 
   @Input('pickerPad') public pickerPad: number = 0;
+  @Input('context') public _context: ColorPickerComponent;
 
   constructor(public elRef: ElementRef) { }
 

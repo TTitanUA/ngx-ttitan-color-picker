@@ -1,7 +1,8 @@
 import { EventEmitter, OnInit } from '@angular/core';
-import { Palette } from "../ngx-ttitan-color-picker.service";
+import { ColorPickerComponent, Palette } from "../ngx-ttitan-color-picker.interface";
 export declare class NgxTTitanColorPickerPaletteListComponent implements OnInit {
     pallets: Array<Palette>;
+    _context: ColorPickerComponent;
     change: EventEmitter<string>;
     activePalette: Palette;
     constructor();

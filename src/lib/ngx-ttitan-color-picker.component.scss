@@ -113,8 +113,9 @@
     background-position: 0 0,0 .8rem,.8rem -.8rem,-.8rem 0;
     position: relative;
     overflow: hidden;
-    width: 165px;
-    height: 165px;
+    //width: 165px;
+    //height: 165px;
+    flex: auto;
     border-radius: 4px;
     cursor: pointer;
 
@@ -155,6 +156,7 @@
     overflow: hidden;
     height: 165px;
     width: 24px;
+    flex: 0 0 24px;
     margin-left: .8rem;
     border-width: 3px;
     border-radius: 8rem;

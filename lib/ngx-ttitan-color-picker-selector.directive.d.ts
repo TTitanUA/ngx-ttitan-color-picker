@@ -2,27 +2,19 @@ import { ElementRef, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { NgxTTitanColorPickerDraggerDirective } from "./ngx-ttitan-color-picker-dragger.directive";
 import { Subscription } from 'rxjs';
 import { NgxTTitanColorPickerService } from "./ngx-ttitan-color-picker.service";
-export interface CustomRect {
-    height: number;
-    left: number;
-    top: number;
-    width: number;
-}
-export interface CustomPercent {
-    x: number;
-    y: number;
-}
+import { ColorPickerComponent, CustomPercent, CustomRect } from "./ngx-ttitan-color-picker.interface";
 export declare class NgxTTitanColorPickerSelectorDirective implements OnDestroy, OnInit {
     elRef: ElementRef;
     colorPickerService: NgxTTitanColorPickerService;
+    onMouseDown($event: any): void;
     direction: string;
-    dragger: NgxTTitanColorPickerDraggerDirective;
+    _context: ColorPickerComponent;
     change: EventEmitter<CustomPercent>;
     el: HTMLElement;
     dragStart: boolean;
     globalMouseMove: Subscription;
     globalMouseUp: Subscription;
-    onMouseDown($event: any): void;
+    dragger: NgxTTitanColorPickerDraggerDirective;
     constructor(elRef: ElementRef, colorPickerService: NgxTTitanColorPickerService);
     ngOnInit(): void;
     ngOnDestroy(): void;

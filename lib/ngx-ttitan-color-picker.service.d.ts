@@ -1,19 +1,7 @@
-import { CustomPercent } from "./ngx-ttitan-color-picker-selector.directive";
 import { NgxTTitanColorPickerComponent } from "./ngx-ttitan-color-picker.component";
 import { Observable } from "rxjs/index";
-export interface HSVA {
-    hue: number;
-    saturation: number;
-    value: number;
-    alpha: number;
-}
-export interface Palette {
-    name: string;
-    id: string;
-    colors: Array<string>;
-}
+import { CustomPercent, HSVA, Palette } from "./ngx-ttitan-color-picker.interface";
 export declare class NgxTTitanColorPickerService {
-    debug: boolean;
     pickerList: Array<string>;
     pallets: Array<Palette>;
     mouseMoveObservable: Observable<MouseEvent>;
