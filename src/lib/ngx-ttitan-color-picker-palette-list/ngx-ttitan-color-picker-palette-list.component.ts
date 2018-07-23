@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Palette} from "../ngx-ttitan-color-picker.service";
+import {ColorPickerComponent, Palette} from "../ngx-ttitan-color-picker.interface";
 
 @Component({
   selector: 'lib-ngx-ttitan-color-picker-palette-list',
@@ -9,6 +9,7 @@ import {Palette} from "../ngx-ttitan-color-picker.service";
 export class NgxTTitanColorPickerPaletteListComponent implements OnInit {
 
   @Input('pallets') public pallets: Array<Palette> = [];
+  @Input('context') public _context: ColorPickerComponent;
   @Output('change') public change: EventEmitter<string> = new EventEmitter<string>();
 
   public activePalette: Palette = null;
@@ -23,6 +24,7 @@ export class NgxTTitanColorPickerPaletteListComponent implements OnInit {
   }
 
   selectPalette(palette: Palette) {
+    this._context.closePicker();
     if(
       this.activePalette == null
     ) {

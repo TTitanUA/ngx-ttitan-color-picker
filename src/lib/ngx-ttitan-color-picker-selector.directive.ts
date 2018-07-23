@@ -5,18 +5,7 @@ import {NgxTTitanColorPickerDraggerDirective} from "./ngx-ttitan-color-picker-dr
 // import {Observable, Subscription, of} from "rxjs";
 import {fromEvent, Subscription} from 'rxjs';
 import {NgxTTitanColorPickerService} from "./ngx-ttitan-color-picker.service";
-
-export interface CustomRect {
-  height: number,
-  left: number,
-  top: number,
-  width: number
-}
-
-export interface CustomPercent {
-  x: number,
-  y: number,
-}
+import {ColorPickerComponent, CustomPercent, CustomRect} from "./ngx-ttitan-color-picker.interface";
 
 
 @Directive({
@@ -25,9 +14,15 @@ export interface CustomPercent {
 })
 export class NgxTTitanColorPickerSelectorDirective implements OnDestroy, OnInit{
 
-  @Input('direction') public direction: string = 'both';
+  @HostListener('mousedown', ['$event']) public onMouseDown($event) {
+    this.dragStart = true;
+    this.eventsSubscibe();
+    this.getPosition($event);
+  }
 
-  @ContentChild(NgxTTitanColorPickerDraggerDirective) public dragger: NgxTTitanColorPickerDraggerDirective = null;
+  @Input('direction') public direction: string = 'both';
+  @Input('context') public _context: ColorPickerComponent;
+
 
   @Output('change') public change: EventEmitter<CustomPercent> = new EventEmitter<CustomPercent>();
 
@@ -37,11 +32,7 @@ export class NgxTTitanColorPickerSelectorDirective implements OnDestroy, OnInit{
   public globalMouseUp: Subscription = null;
 
 
-
-  @HostListener('mousedown', ['$event']) public onMouseDown($event) {
-    this.dragStart = true;
-    this.getPosition($event);
-  }
+  @ContentChild(NgxTTitanColorPickerDraggerDirective) public dragger: NgxTTitanColorPickerDraggerDirective = null;
 
 
 
@@ -62,35 +53,36 @@ export class NgxTTitanColorPickerSelectorDirective implements OnDestroy, OnInit{
   }
 
   ngOnDestroy() {
-   this.eventsUnSubscibe();
+   // this.eventsUnSubscibe();
   }
 
 
   eventsSubscibe() {
-    this.globalMouseMove = fromEvent(window, 'mousemove').subscribe((event) => {
-      if(this.dragStart) {
-        this.getPosition(<MouseEvent>event);
-      }
-    });
-    this.globalMouseUp = fromEvent(window, 'mouseup').subscribe((event) => {
-      if(this.dragStart) {
-        this.dragStart = false;
-        this.getPosition(<MouseEvent>event);
-      }
-    });
-
-
-    // this.globalMouseMove = this.colorPickerService.mouseMoveObservable.subscribe((event) => {
+    // this.globalMouseMove = fromEvent(window, 'mousemove').subscribe((event) => {
     //   if(this.dragStart) {
     //     this.getPosition(<MouseEvent>event);
     //   }
     // });
-    // this.globalMouseUp = this.colorPickerService.mouseUpObservable.subscribe((event) => {
+    // this.globalMouseUp = fromEvent(window, 'mouseup').subscribe((event) => {
     //   if(this.dragStart) {
     //     this.dragStart = false;
     //     this.getPosition(<MouseEvent>event);
     //   }
     // });
+
+    //
+    this.globalMouseMove = this.colorPickerService.mouseMoveObservable.subscribe((event) => {
+      if(this.dragStart) {
+        this.getPosition(<MouseEvent>event);
+      }
+    });
+    this.globalMouseUp = this.colorPickerService.mouseUpObservable.subscribe((event) => {
+      if(this.dragStart) {
+        this.dragStart = false;
+        this.eventsUnSubscibe();
+        this.getPosition(<MouseEvent>event);
+      }
+    });
   }
   eventsUnSubscibe() {
     if(this.globalMouseMove !== null) {

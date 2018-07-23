@@ -6,11 +6,11 @@
     <div
       [ngStyle]="{backgroundColor: color}"
       class="debug-output"
-      *ngIf="colorPickerService.debug"
+      *ngIf="_pickerConfig.debug"
     >
       {{color}}
     </div>
-    <div class="picker-input-label">
+    <div class="picker-input-label" *ngIf="title !== ''">
       <label [for]="uuid" >{{title}}</label>
     </div>
     <div class="picker-input-holder">
@@ -22,7 +22,7 @@
           libNgxTTitanColorPickerInput
           #pickerInput="libNgxTTitanColorPickerInput"
           (inputChange)="inputColorChange($event)"
-          [format]="inputFormat"
+          [format]="_pickerConfig.inputFormat"
           [id]="uuid"
           type="text"
           (focus)="openPicker()"
@@ -34,39 +34,61 @@
     </div>
 
   </div>
-  <div class="ngx-ttitan-color-picker" [ngClass]="{'no-alpha': !alpha, 'open': pickerOpen}">
+  <div class="ngx-ttitan-color-picker" [ngClass]="{'no-alpha': !_pickerConfig.alpha, 'open': pickerOpen}">
     <div class="ngx-ttitan-color-picker__MainColor">
       <div class="ngx-ttitan-color-picker__ColorLayer" [ngStyle]="{backgroundColor: currentColorMax}" ></div>
-      <div class="ngx-ttitan-color-picker__Slidable" libNgxTTitanColorPickerSelector #mainColor="libNgxTTitanColorPickerSelector" (change)="colorPickerService.saturationChange($event, this)">
-        <div class="ngx-ttitan-color-picker__Dragger" libNgxTTitanColorPickerDragger style="transform: translate3d(0px, 0px, 0px);"></div>
+      <div class="ngx-ttitan-color-picker__Slidable"
+           libNgxTTitanColorPickerSelector
+           #mainColor="libNgxTTitanColorPickerSelector"
+           [context]="this"
+           (change)="colorPickerService.saturationChange($event, this)"
+      >
+        <div class="ngx-ttitan-color-picker__Dragger"
+             libNgxTTitanColorPickerDragger
+             [context]="this"
+             style="transform: translate3d(0px, 0px, 0px);"
+        ></div>
       </div>
     </div>
     <div class="ngx-ttitan-color-picker__HuePicker">
-      <div class="ngx-ttitan-color-picker__Slidable"  libNgxTTitanColorPickerSelector #huePicker="libNgxTTitanColorPickerSelector" (change)="colorPickerService.hueChange($event, this)" [direction]="'vertical'">
-        <div class="ngx-ttitan-color-picker__Dragger" libNgxTTitanColorPickerDragger [pickerPad]="0" style=" transform: translate3d(0px, 0px, 0px);"></div>
+      <div class="ngx-ttitan-color-picker__Slidable"
+           libNgxTTitanColorPickerSelector
+           #huePicker="libNgxTTitanColorPickerSelector"
+           (change)="colorPickerService.hueChange($event, this)"
+           [direction]="'vertical'"
+           [context]="this"
+      >
+        <div class="ngx-ttitan-color-picker__Dragger"
+             libNgxTTitanColorPickerDragger
+             [pickerPad]="0"
+             style=" transform: translate3d(0px, 0px, 0px);"
+             [context]="this"
+        ></div>
       </div>
     </div>
-    <div class="ngx-ttitan-color-picker__AlphaPicker" *ngIf="alpha === true">
+    <div class="ngx-ttitan-color-picker__AlphaPicker" *ngIf="_pickerConfig.alpha === true">
       <div class="ngx-ttitan-color-picker__ColorLayer"
-
            [ngStyle]="{background: 'linear-gradient(to top, ' + currentColorAlphaZero + '  18px, ' + currentColor + ' calc(100% - 18px)'}"
       ></div>
-      <div class="ngx-ttitan-color-picker__Slidable"  libNgxTTitanColorPickerSelector #alphaPicker="libNgxTTitanColorPickerSelector" (change)="colorPickerService.alphaChange($event, this)" [direction]="'vertical'">
-        <div class="ngx-ttitan-color-picker__Dragger" libNgxTTitanColorPickerDragger [pickerPad]="0" style=" transform: translate3d(0px, 0px, 0px);"></div>
+      <div class="ngx-ttitan-color-picker__Slidable"
+           libNgxTTitanColorPickerSelector
+           #alphaPicker="libNgxTTitanColorPickerSelector"
+           (change)="colorPickerService.alphaChange($event, this)"
+           [direction]="'vertical'"
+           [context]="this"
+      >
+        <div class="ngx-ttitan-color-picker__Dragger"
+             libNgxTTitanColorPickerDragger
+             [pickerPad]="0" style=" transform: translate3d(0px, 0px, 0px);"
+             [context]="this"
+        ></div>
       </div>
     </div>
-    <!--<div style="height: 40px; width: 40px" [ngStyle]="{background: currentColor}">-->
-
-    <!--</div>-->
-    <!--<div style="height: 40px; width: 40px" [ngStyle]="{background: currentColorAlpha}">-->
-
-    <!--</div>-->
   </div>
   <lib-ngx-ttitan-color-picker-palette-list
     (change)="inputColorChange($event)"
     [pallets]="pickerPallets"
-  >
-
-  </lib-ngx-ttitan-color-picker-palette-list>
+    [context]="this"
+  ></lib-ngx-ttitan-color-picker-palette-list>
 </div>
 
