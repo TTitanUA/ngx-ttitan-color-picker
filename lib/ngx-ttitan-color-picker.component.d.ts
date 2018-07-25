@@ -11,7 +11,7 @@ export declare class NgxTTitanColorPickerComponent implements OnInit, OnChanges 
     options: PickerOptions;
     color: string;
     title: string;
-    colorChanged: EventEmitter<string>;
+    colorChange: EventEmitter<string>;
     pickerInput: NgxTTitanColorPickerInputDirective;
     paletteList: NgxTTitanColorPickerPaletteListComponent;
     mainColor: NgxTTitanColorPickerSelectorDirective;
@@ -29,6 +29,7 @@ export declare class NgxTTitanColorPickerComponent implements OnInit, OnChanges 
     uuid: string;
     allowedFormats: Array<string>;
     alphaFormats: Array<string>;
+    oldColor: string;
     constructor(colorPickerService: NgxTTitanColorPickerService, cdr: ChangeDetectorRef);
     ngOnInit(): void;
     ngOnChanges(changes: SimpleChanges): void;

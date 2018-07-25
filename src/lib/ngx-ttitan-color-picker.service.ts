@@ -418,8 +418,7 @@ export class NgxTTitanColorPickerService {
     });
     customPallets.forEach((palette) => {
       pickerComponent.pickerPallets.push(palette);
-    })
-
+    });
   }
 
   fillBasePallets() {

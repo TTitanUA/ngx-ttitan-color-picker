@@ -54,7 +54,7 @@ export class NgxTTitanColorPickerComponent implements OnInit, OnChanges {
   @Input('options') public options: PickerOptions = {};
   @Input('color') public color: string = '#ffffff';
   @Input('title') public title: string = '';
-  @Output('change') public colorChanged: EventEmitter<string> = new EventEmitter<string>();
+  @Output('colorChange') public colorChange: EventEmitter<string> = new EventEmitter<string>();
 
 
   @ViewChild('pickerInput') public pickerInput: NgxTTitanColorPickerInputDirective;
@@ -90,6 +90,7 @@ export class NgxTTitanColorPickerComponent implements OnInit, OnChanges {
   public uuid: string = 'picker-';
   public allowedFormats: Array<string> = ['hex6', 'hex8', 'rgb', 'rgba'];
   public alphaFormats: Array<string> = ['hex8', 'rgba'];
+  public oldColor: string = '';
 
   constructor(
     public colorPickerService: NgxTTitanColorPickerService,
@@ -100,7 +101,7 @@ export class NgxTTitanColorPickerComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-
+    this.validateInputParams();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -192,12 +193,12 @@ export class NgxTTitanColorPickerComponent implements OnInit, OnChanges {
   }
 
   updateReturnColor() {
-    let oldColor = this.color + '';
     this.color = this.colorPickerService.prepareReturnColor(this.hsva, this._pickerConfig.outFormat);
 
     if(this.colorInit) {
-      if(oldColor !== this.color) {
-        this.colorChanged.emit(this.color + '');
+      if(this.oldColor !== this.color) {
+        this.oldColor = this.color + '';
+        this.colorChange.emit(this.color + '');
       }
     }
     this.colorInit = true;
