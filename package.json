@@ -1,7 +1,12 @@
 {
   "name": "ngx-ttitan-color-picker",
-  "version": "2.0.0",
+  "version": "2.0.3",
   "license": "MIT",
+  "keywords": [
+    "angular",
+    "angular-component",
+    "color picker"
+  ],
   "repository": "github:TTitanUA/ngx-ttitan-color-picker",
   "peerDependencies": {
     "@angular/common": ">= 4.0.0 < 7.1",
