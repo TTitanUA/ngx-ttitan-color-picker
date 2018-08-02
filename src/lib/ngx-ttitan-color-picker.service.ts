@@ -130,7 +130,7 @@ export class NgxTTitanColorPickerService {
           parseInt(aus2[0]),
           parseInt(aus2[1]),
           parseInt(aus2[2]),
-          parseInt(aus2[3]),
+          parseFloat(aus2[3]),
         ),
         pickerComponent
       );
@@ -162,7 +162,7 @@ export class NgxTTitanColorPickerService {
           parseInt(aus2[0]),
           parseInt(aus2[1]),
           parseInt(aus2[2]),
-          parseInt(aus2[3]),
+          parseFloat(aus2[3]),
         ),
         pickerComponent
       );
