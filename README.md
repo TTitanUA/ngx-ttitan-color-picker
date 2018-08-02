@@ -69,4 +69,10 @@ export class AppModule { }
 | `colorChange`      | **`EventEmmiter<string>`**      |  Output color    |
 
 ### P.S.:
-This is my first public module for Angulyar. So do not judge strictly ;)
+This is my first public module for Angular. So do not judge strictly ;)
+
+Version changes
+----
+
+#### v2.0.4
+ - Fixed rgba && hsla alpha bug
