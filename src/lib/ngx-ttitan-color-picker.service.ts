@@ -321,8 +321,12 @@ export class NgxTTitanColorPickerService {
 
   hsvaToHex(H, S, V, A, showAlpha: boolean = true): string {
     let rgba: Array<number> = this.hsvaToRgba(H, S, V, A);
-
     let hA: string = ((showAlpha) ? (rgba[3] * 255).toString(16).substring(0,2) : '');
+    if(hA.length > 0) {
+      if(hA.indexOf('.') !== -1) {
+        hA = '0' + hA.slice(0,1);
+      }
+    }
 
     if(showAlpha) {
       hA = (hA.length == 1) ? hA + hA : hA;
