@@ -78,3 +78,5 @@ Version changes
  - Fixed rgba && hsla alpha bug
 #### v2.0.5
  - Added style for color pallets
+#### v2.0.6
+ - Fixed hex8 alpha
